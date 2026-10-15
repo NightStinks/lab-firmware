@@ -1,0 +1,99 @@
+# Reusable: builds a LAB. product's firmware and publishes it to this site.
+# Called from each product repo's release workflow, so the product source can stay private
+# while only the built firmware and manifests live here.
+name: Build and publish firmware
+
+on:
+  workflow_call:
+    inputs:
+      product:
+        description: Site folder, e.g. presence
+        required: true
+        type: string
+      title:
+        description: Display name, e.g. LAB. Presence
+        required: true
+        type: string
+      config:
+        description: ESPHome YAML in the product repo
+        required: true
+        type: string
+    secrets:
+      deploy_key:
+        description: SSH key with write access to NightStinks/lab-firmware
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: lab-firmware-${{ inputs.product }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install ESPHome (version pinned in requirements.txt)
+        run: pip install -r requirements.txt
+
+      - name: Check the release tag matches the firmware version
+        id: version
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          version=$(sed -nE 's/^  version: "([^"]+)".*/\1/p' "${{ inputs.config }}" | head -1)
+          if [ -z "$version" ]; then echo "::error::No version substitution in ${{ inputs.config }}"; exit 1; fi
+          if [ -n "$TAG" ] && [ "$TAG" != "v$version" ]; then
+            echo "::error::Release tag $TAG does not match firmware version $version (expected v$version)"; exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Compile
+        run: esphome -s build_path "$RUNNER_TEMP/build" compile "${{ inputs.config }}"
+
+      - name: Collect binaries
+        id: bins
+        run: |
+          factory=$(find "$RUNNER_TEMP/build/.pioenvs" -name firmware.factory.bin | head -1)
+          ota=$(find "$RUNNER_TEMP/build/.pioenvs" -name firmware.ota.bin | head -1)
+          [ -f "$factory" ] && [ -f "$ota" ] || { echo "::error::Build output not found"; exit 1; }
+          mkdir -p out
+          cp "$factory" "out/lab-${{ inputs.product }}.factory.bin"
+          cp "$ota" "out/lab-${{ inputs.product }}.ota.bin"
+
+      - name: Attach binaries to the release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" out/*.bin --clobber
+
+      - uses: actions/checkout@v4
+        with:
+          repository: NightStinks/lab-firmware
+          ssh-key: ${{ secrets.deploy_key }}
+          path: site
+
+      - name: Publish to the site
+        env:
+          SUMMARY: ${{ github.event.release.name }}
+          RELEASE_URL: ${{ github.event.release.html_url }}
+        run: |
+          python3 site/scripts/publish.py \
+            --product "${{ inputs.product }}" --title "${{ inputs.title }}" \
+            --version "${{ steps.version.outputs.version }}" \
+            --factory "out/lab-${{ inputs.product }}.factory.bin" \
+            --ota "out/lab-${{ inputs.product }}.ota.bin" \
+            --summary "$SUMMARY" --release-url "$RELEASE_URL"
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "${{ inputs.title }} ${{ steps.version.outputs.version }}"
+          # Another product may have published meanwhile.
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 5; done
+          exit 1

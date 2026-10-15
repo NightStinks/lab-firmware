@@ -1,0 +1,22 @@
+{
+  "name": "LAB. Zones",
+  "version": "0.6.1",
+  "home_assistant_domain": "esphome",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-C3",
+      "parts": [
+        {
+          "path": "0.6.1/lab-zones.factory.bin",
+          "offset": 0
+        }
+      ],
+      "ota": {
+        "path": "0.6.1/lab-zones.ota.bin",
+        "md5": "1e5610c70579ea9bd9666721df4256a5",
+        "summary": "First feed build (built locally)"
+      }
+    }
+  ]
+}

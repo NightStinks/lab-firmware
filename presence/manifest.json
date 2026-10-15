@@ -1,0 +1,22 @@
+{
+  "name": "LAB. Presence",
+  "version": "0.1.0",
+  "home_assistant_domain": "esphome",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-C3",
+      "parts": [
+        {
+          "path": "0.1.0/lab-presence.factory.bin",
+          "offset": 0
+        }
+      ],
+      "ota": {
+        "path": "0.1.0/lab-presence.ota.bin",
+        "md5": "34d3469138871f585da4ff8228e0e237",
+        "summary": "First feed build (built locally)"
+      }
+    }
+  ]
+}

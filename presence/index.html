@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install LAB. Presence</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&family=DM+Sans:wght@400;500&family=Sora:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<script type="module" src="https://unpkg.com/esp-web-tools@10.4.0/dist/web/install-button.js?module"></script>
+</head>
+<body>
+<main>
+  <a class="wordmark" href="../">LAB<span>.</span></a>
+  <p class="tag" id="version">&nbsp;</p>
+  <h1>Install LAB. Presence</h1>
+  <p>The LD2410 presence sensor. For the LD2450 multi-zone sensor, use <a href="../zones/">LAB. Zones</a>.</p>
+
+  <esp-web-install-button manifest="manifest.json">
+    <button class="arch" slot="activate">Connect sensor</button>
+    <div class="callout" slot="unsupported">This browser cannot talk to USB devices. Open this page in Chrome or Edge on a computer.</div>
+    <div class="callout" slot="not-allowed">Installing only works over a secure (https) connection.</div>
+  </esp-web-install-button>
+
+  <h2>Steps</h2>
+  <ol>
+    <li>Plug the sensor into this computer with a USB cable.</li>
+    <li>Press Connect sensor, choose its USB port, then Install.</li>
+    <li>When it finishes, enter your Wi-Fi name and password.</li>
+    <li>Home Assistant finds the sensor on its own.</li>
+  </ol>
+
+  <h2>If the port does not show up</h2>
+  <ol>
+    <li>Try another cable. Many USB cables only charge and cannot carry data.</li>
+    <li>Hold the BOOT button on the board while plugging it in, then try again.</li>
+  </ol>
+
+  <footer><p><a href="manifest.json">manifest.json</a> is the firmware feed. Installed sensors check it every 6 hours.</p></footer>
+</main>
+<script>
+  fetch("manifest.json", { cache: "no-store" })
+    .then((r) => r.json())
+    .then((m) => { document.getElementById("version").textContent = "Firmware v" + m.version; })
+    .catch(() => {});
+</script>
+</body>
+</html>

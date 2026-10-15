@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAB. Firmware</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&family=DM+Sans:wght@400;500&family=Sora:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <a class="wordmark" href="./">LAB<span>.</span></a>
+  <h1>Firmware</h1>
+  <p>Install or reinstall firmware on a LAB. sensor from this browser. Sensors also check here for updates on their own, so most people never need this page.</p>
+  <ul class="products">
+    <li><a href="presence/"><strong>LAB. Presence</strong><span class="tag" data-manifest="presence/manifest.json"></span></a></li>
+    <li><a href="zones/"><strong>LAB. Zones</strong><span class="tag" data-manifest="zones/manifest.json"></span></a></li>
+  </ul>
+  <footer><p class="tag">Testing builds</p></footer>
+</main>
+<script>
+  for (const el of document.querySelectorAll("[data-manifest]")) {
+    fetch(el.dataset.manifest, { cache: "no-store" })
+      .then((r) => r.json())
+      .then((m) => { el.textContent = "v" + m.version; })
+      .catch(() => {});
+  }
+</script>
+</body>
+</html>
