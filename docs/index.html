@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAB. Docs</title>
+<meta name="description" content="Setting up, updating and resetting LAB. sensors.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&family=DM+Sans:wght@400;500&family=Sora:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main class="docs">
+  <nav class="site-nav" aria-label="Site">
+    <a class="wordmark" href="../">LAB<span>.</span></a>
+    <ul><li><a href="../">Install</a></li><li><a href="./" aria-current="page">Docs</a></li><li><a href="../home-assistant/">Home Assistant</a></li></ul>
+  </nav>
+  <h1>Docs</h1>
+  <p>Everything for LAB. Presence and LAB. Zones. They set up the same way; where they differ, it says so.</p>
+  <ul class="toc">
+    <li><a href="#setup">Setting up a new sensor</a></li>
+    <li><a href="#home-assistant">Home Assistant</a></li>
+    <li><a href="#page">The sensor's own page</a></li>
+    <li><a href="#updates">Updates</a></li>
+    <li><a href="#moving">Moving a sensor</a></li>
+    <li><a href="#reset">Factory reset</a></li>
+    <li><a href="#trouble">Troubleshooting</a></li>
+  </ul>
+
+  <h2 id="setup">Setting up a new sensor</h2>
+  <ol>
+    <li>Plug it in where it will live. After a few seconds it makes its own Wi-Fi network: <strong>LAB Presence Setup</strong> or <strong>LAB Zones Setup</strong>.</li>
+    <li>On your phone, join that Wi-Fi. A page opens by itself: choose your home Wi-Fi and type its password.</li>
+    <li>Wait a minute while it joins your Wi-Fi. The setup network disappears.</li>
+  </ol>
+  <p>If the sensor is plugged into a computer, you can do the same over USB from the <a href="../">install page</a>: connect, skip the install, and enter your Wi-Fi there.</p>
+
+  <h2 id="home-assistant">Home Assistant</h2>
+  <p>Home Assistant finds the sensor on its own and shows <strong>New device discovered</strong>. Press <strong>Add</strong> to get its sensors (Presence, Moving, Still, or the zones) in Home Assistant.</p>
+  <p>The LAB. app lists every LAB. sensor and opens its setup page from the Home Assistant sidebar, including away from home. See <a href="../home-assistant/">Home Assistant setup</a> for both, with one-click buttons.</p>
+
+  <h2 id="page">The sensor's own page</h2>
+  <p>Each sensor serves its own setup page, which works without internet and without Home Assistant. Open it from the LAB. app, or go to its address in a browser on the same Wi-Fi:</p>
+  <ul>
+    <li>LAB. Presence: <code>http://lab-presence-xxxxxx.local</code></li>
+    <li>LAB. Zones: <code>http://lab-zones-xxxxxx.local</code></li>
+  </ul>
+  <p>The last six characters are unique to each sensor. Home Assistant shows them in the device name.</p>
+  <h3>LAB. Presence</h3>
+  <p>Set Sensitivity, Detection range and Clear delay. <strong>Learn my room</strong> measures the empty room for 60 seconds and sets the thresholds just above it: leave the room, and keep the page open until it finishes.</p>
+  <h3>LAB. Zones</h3>
+  <p>Choose where the sensor is mounted (on a wall, or in a corner at 45 degrees), then paint named zones and ignore areas on the map. Settings and the map can be saved to a file and restored.</p>
+
+  <h2 id="updates">Updates</h2>
+  <p>Sensors check for new firmware every 6 hours. When there is one, Home Assistant shows <strong>Update available</strong> on the sensor's Firmware entity. Nothing installs until you press Install.</p>
+  <p>After an update, leave the sensor running for a minute before restarting it. A new version is only kept once it has run for about a minute; restarting sooner goes back to the previous version.</p>
+
+  <h2 id="moving">Moving a sensor</h2>
+  <p>Just plug it in at the new place. If it cannot find its saved Wi-Fi for a minute (90 seconds for LAB. Presence), the setup network comes back on its own, so you can join it and choose the new Wi-Fi.</p>
+
+  <h2 id="reset">Factory reset</h2>
+  <h3>LAB. Zones</h3>
+  <p>Plug it in and unplug it again within 10 seconds, five times in a row. Wi-Fi, the map and every setting are erased, and it restarts into its setup network.</p>
+  <h3>LAB. Presence</h3>
+  <p>Plug it into a computer and reinstall from the <a href="../presence/">install page</a>, choosing to erase the device when asked.</p>
+
+  <h2 id="trouble">Troubleshooting</h2>
+  <h3>I cannot see the setup network</h3>
+  <p>Stand close to the sensor. Wait 30 seconds after plugging it in. Try a different USB power adapter, since weak ones can stop the Wi-Fi starting. If it was set up before, it only makes the setup network after failing to reach its saved Wi-Fi for a minute or so.</p>
+  <h3>The sensor's page will not open</h3>
+  <p>Make sure you are on the same Wi-Fi. Some networks block <code>.local</code> names: open it from the LAB. app instead, or use the IP address shown in Home Assistant or your router.</p>
+  <h3>The install page cannot find the sensor</h3>
+  <p>Use Chrome or Edge on a computer. Try another USB cable, as many only charge. If the port still does not appear, hold the BOOT button on the board while plugging it in.</p>
+
+  <footer><p class="tag">Testing builds</p></footer>
+</main>
+</body>
+</html>

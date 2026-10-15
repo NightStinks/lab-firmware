@@ -13,7 +13,10 @@
 </head>
 <body>
 <main>
-  <a class="wordmark" href="../">LAB<span>.</span></a>
+  <nav class="site-nav" aria-label="Site">
+    <a class="wordmark" href="../">LAB<span>.</span></a>
+    <ul><li><a href="../" aria-current="page">Install</a></li><li><a href="../docs/">Docs</a></li><li><a href="../home-assistant/">Home Assistant</a></li></ul>
+  </nav>
   <p class="tag" id="version">&nbsp;</p>
   <h1>Install LAB. Zones</h1>
   <p>The LD2450 multi-zone sensor. For the LD2410 presence sensor, use <a href="../presence/">LAB. Presence</a>.</p>
@@ -29,8 +32,9 @@
     <li>Plug the sensor into this computer with a USB cable.</li>
     <li>Press Connect sensor, choose its USB port, then Install.</li>
     <li>When it finishes, enter your Wi-Fi name and password.</li>
-    <li>Home Assistant finds the sensor on its own.</li>
+    <li>Home Assistant finds the sensor on its own. Press Add when it says New device discovered.</li>
   </ol>
+  <div class="callout">Next: <a href="../home-assistant/">add LAB. to Home Assistant</a> to open the sensor's setup page from the sidebar.</div>
 
   <h2>If the port does not show up</h2>
   <ol>

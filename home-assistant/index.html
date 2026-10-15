@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAB. Home Assistant</title>
+<meta name="description" content="Add LAB. sensors and the LAB. app to Home Assistant.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&family=DM+Sans:wght@400;500&family=Sora:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+  <nav class="site-nav" aria-label="Site">
+    <a class="wordmark" href="../">LAB<span>.</span></a>
+    <ul><li><a href="../">Install</a></li><li><a href="../docs/">Docs</a></li><li><a href="./" aria-current="page">Home Assistant</a></li></ul>
+  </nav>
+  <h1>Home Assistant</h1>
+  <p>Two parts. The LAB. app is added once per home. Each sensor is added once, and Home Assistant usually finds it for you.</p>
+  <p>The buttons open your own Home Assistant through My Home Assistant. The first time, it asks for your Home Assistant's address.</p>
+
+  <section class="step">
+    <p class="tag">Once per home</p>
+    <h2>Add the LAB. app</h2>
+    <p>Lists every LAB. sensor and opens its setup page from the Home Assistant sidebar, including away from home.</p>
+    <!-- supervisor_app adds the repository if needed, then opens the app. d5b43fc5 = sha1 of the repo URL, lowercased, first 8. -->
+    <div class="actions">
+      <a class="arch" href="https://my.home-assistant.io/redirect/supervisor_app/?app=d5b43fc5_lab&amp;repository_url=https%3A%2F%2Fgithub.com%2FNightStinks%2Flab-hub" target="_blank" rel="noopener">Add LAB. to Home Assistant</a>
+      <a href="https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FNightStinks%2Flab-hub" target="_blank" rel="noopener">Add the repository only</a>
+    </div>
+    <ol>
+      <li>Press <strong>Install</strong>. The first install takes a few minutes.</li>
+      <li>Press <strong>Start</strong>, and turn on <strong>Show in sidebar</strong>.</li>
+    </ol>
+    <p>Apps need Home Assistant OS, which most people use. On Home Assistant Container, skip this part: the sensors still work, and their pages open from their own address (see <a href="../docs/#page">Docs</a>).</p>
+  </section>
+
+  <section class="step">
+    <p class="tag">Each sensor</p>
+    <h2>Add your sensors</h2>
+    <p>Once a sensor is on your Wi-Fi, Home Assistant shows <strong>New device discovered</strong>. Press <strong>Add</strong>. Its presence and zone sensors, settings and firmware updates appear on the device.</p>
+    <div class="actions">
+      <a class="arch" href="https://my.home-assistant.io/redirect/integrations/" target="_blank" rel="noopener">See discovered devices</a>
+      <a href="https://my.home-assistant.io/redirect/config_flow_start/?domain=esphome" target="_blank" rel="noopener">Add by address instead</a>
+    </div>
+    <p>If it is not discovered, use Add by address with the sensor's address, for example <code>lab-zones-a1b2c3.local</code> or its IP.</p>
+  </section>
+
+  <footer><p>Sensor not on Wi-Fi yet? See <a href="../docs/#setup">Setting up a new sensor</a>.</p></footer>
+</main>
+</body>
+</html>

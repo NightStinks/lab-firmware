@@ -10,6 +10,8 @@ public: the built `.bin` files, the manifests and the install pages.
 |---|---|
 | `index.html`, `style.css` | Landing page and shared brand styles |
 | `<product>/index.html` | Browser installer (ESP Web Tools 10.4.0, Chrome or Edge) |
+| `docs/` | User docs: setup, updates, moving, reset, troubleshooting |
+| `home-assistant/` | My Home Assistant buttons: add the LAB. app (`d5b43fc5_lab`), find or add sensors |
 | `<product>/manifest.json` | The feed. Used by the installer and by installed sensors for updates |
 | `<product>/<version>/` | Every published build, kept for rollback |
 | `.github/workflows/build.yml` | Reusable build-and-publish workflow, called by each product repo on release |

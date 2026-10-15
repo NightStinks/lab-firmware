@@ -25,13 +25,26 @@ body {
 
 main { max-width: 560px; margin: 0 auto; padding: 48px 16px 64px; }
 
+/* Top bar: wordmark left, sections right. Wraps under the wordmark on narrow phones. */
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 48px;
+}
+.site-nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+.site-nav ul a { color: var(--muted-ink); text-decoration: none; font-weight: 500; padding: 4px 0; }
+.site-nav ul a:hover { color: var(--charcoal); }
+.site-nav ul a[aria-current="page"] { color: var(--charcoal); box-shadow: inset 0 -2px 0 var(--charcoal); }
+
 .wordmark {
   display: inline-block;
   font: 600 22px/1 "Sora", system-ui, sans-serif;
   letter-spacing: -0.03em;
   color: var(--charcoal);
   text-decoration: none;
-  margin-bottom: 40px;
 }
 .wordmark span { color: var(--vermilion); }
 
@@ -62,6 +75,23 @@ a { color: var(--charcoal); }
   margin: 24px 0 8px;
 }
 .arch:hover { background: var(--raised); }
+a.arch { display: inline-block; text-decoration: none; }
+.arch.secondary { background: transparent; color: var(--charcoal); box-shadow: inset 0 0 0 1.5px var(--charcoal); }
+.arch.secondary:hover { background: rgba(51, 51, 51, 0.06); }
+.actions { display: flex; flex-wrap: wrap; gap: 0 12px; align-items: center; }
+
+/* Numbered setup steps with an action under each. */
+.step { border-top: 1px solid var(--line); padding: 24px 0 8px; }
+.step h2 { margin-top: 8px; }
+.step .arch { margin-top: 12px; }
+
+/* Docs: in-page contents, then sections. */
+.toc { list-style: none; padding: 0; margin: 24px 0 0; columns: 2; column-gap: 24px; }
+.toc li { margin: 4px 0; break-inside: avoid; }
+.docs h2 { margin-top: 48px; padding-top: 8px; scroll-margin-top: 16px; }
+.docs h3 { font: 600 16px/1.3 "Sora", system-ui, sans-serif; letter-spacing: -0.01em; margin: 24px 0 4px; }
+code { font: 14px "DM Mono", ui-monospace, monospace; background: rgba(51, 51, 51, 0.07); padding: 1px 5px; border-radius: 4px; color: var(--charcoal); }
+@media (max-width: 420px) { .toc { columns: 1; } }
 .arch:focus-visible { outline: 2px solid var(--vermilion); outline-offset: 3px; }
 
 .callout {
